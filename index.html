@@ -8,8 +8,8 @@
 
     <style>
         body {text-align: center;}
-        #enterDetails {width: 1%;display: none;}
-        #findDetails {float: left; width: 99%; background-color: floralwhite; color: darkslategray;}
+        #enterDetails {width: 0;display: none;}
+        #findDetails {float: left; width: 610px; background-color: floralwhite; color: 
         input {width: 120px;}
     </style>
 
@@ -104,7 +104,7 @@
             get(child(dbref, "People/" + findID.value))
             .then((snapshot)=>{
                 if(snapshot.exists()){
-                    findName.innerHTML = "Driving Events: " + snapshot.val().Name;
+                    findName.innerHTML = "" + snapshot.val().Name;
                     
                 } else {
                     alert("No data found");
