@@ -23,8 +23,10 @@
 <body>
     <div id="findDetails">
         <h1>Find by ID-Date</h1>
-        <h4>Example: 888-2023-10-15</h4>
-        <input id="findID" type="text"> <br><br>
+        <h4>UserID</h4>
+        <input id="findID" type="text" placeholder="e.g. 888"> <br><br>
+        <h4>Date</h4>
+        <input id="findDate" type="text" placeholder="e.g. 2023-10-14"> <br><br>
         <button id="find">FIND</button>
         <h3 id="findName" type="text"></h3>
         <h3 id="findAge" type="number"></h3> <br><br>
@@ -79,14 +81,33 @@
         var enterName = document.querySelector("#enterName");
         var enterAge = document.querySelector("#enterAge");
         var findID = document.querySelector("#findID");
+        var findDate = document.querySelector("#findDate");
         var findName = document.querySelector("#findName");
         var findAge = document.querySelector("#findAge");
-      
 
         var insertBtn = document.querySelector("#insert");
         var updateBtn = document.querySelector("#update");
         var removeBtn = document.querySelector("#remove");
         var findBtn = document.querySelector("#find");
+        var username = document.getElementById("username");
+        var username = document.getElementById("username");
+
+        function FindData() {
+            const dbref = ref(db);
+            get(child(dbref, "People/" + findID.value + "-" + findDate.value))
+            .then((snapshot)=>{
+                if(snapshot.exists()){
+                    findName.innerHTML = "" + snapshot.val().Name;
+                    
+                } else {
+                    alert("No data found");
+                }
+            })
+            .catch((error)=>{
+                alert(error)
+            })
+            
+        }
 
         function InsertData() {
             set(ref(db, "People/"+ enterID.value),{
@@ -100,24 +121,6 @@
             .catch((error)=>{
                 alert(error);
             });
-        }
-
-        function FindData() {
-            const dbref = ref(db);
-
-            get(child(dbref, "People/" + findID.value))
-            .then((snapshot)=>{
-                if(snapshot.exists()){
-                    findName.innerHTML = "" + snapshot.val().Name;
-                    
-                } else {
-                    alert("No data found");
-                }
-            })
-            .catch((error)=>{
-                alert(error)
-            })
-            
         }
 
         function UpdateData(){
